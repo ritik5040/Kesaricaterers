@@ -1,0 +1,5 @@
+*.docx
+a-luxurious-logo-design-for-kesari-cater*
+.DS_Store
+node_modules/
+.env
