@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Kesari Caters — Food, Health & Catering Insights</title>
+  <meta name="description" content="Explore expert articles on Indian food traditions, nutrition tips, event catering advice, and healthy eating from Kesari Caters — Jaipur's premium catering team." />
+  <link rel="icon" type="image/png" href="kesari caters logo no bg.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ===== BLOG-SPECIFIC STYLES ===== */
+    .blog-hero {
+      background:
+        linear-gradient(135deg, rgba(26,10,0,0.88) 0%, rgba(61,26,0,0.78) 50%, rgba(26,10,0,0.92) 100%),
+        url('hero-spread.png') center/cover no-repeat;
+      min-height: 52vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: var(--nav-height);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4AF37' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .blog-hero-content { position: relative; z-index: 2; padding: 60px 24px; }
+    .blog-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    .blog-hero h1 em {
+      display: block;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--saffron));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-style: italic;
+    }
+    .blog-hero p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* Blog Categories Filter */
+    .blog-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 56px;
+    }
+    .filter-btn {
+      padding: 8px 22px;
+      border-radius: 50px;
+      border: 1.5px solid rgba(212,175,55,0.25);
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-mid);
+      transition: var(--transition);
+    }
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: linear-gradient(135deg, var(--saffron), var(--saffron-dark));
+      color: var(--white);
+      border-color: transparent;
+      box-shadow: 0 4px 16px rgba(232,130,26,0.25);
+    }
+
+    /* Featured Article */
+    .featured-article {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 64px;
+      border: 1px solid rgba(212,175,55,0.12);
+    }
+    @media (max-width: 768px) {
+      .featured-article { grid-template-columns: 1fr; }
+    }
+    .featured-img-wrap { overflow: hidden; min-height: 400px; }
+    .featured-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+      display: block;
+    }
+    .featured-article:hover .featured-img { transform: scale(1.04); }
+    .featured-content {
+      padding: 52px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    @media (max-width: 768px) {
+      .featured-img-wrap { min-height: 260px; }
+      .featured-content { padding: 32px 24px; }
+    }
+    .feat-tag {
+      display: inline-block;
+      background: rgba(232,130,26,0.1);
+      color: var(--saffron);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 50px;
+      margin-bottom: 18px;
+    }
+    .featured-content h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .featured-content p {
+      font-size: 0.96rem;
+      color: var(--text-light);
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+    .article-meta span { display: flex; align-items: center; gap: 5px; }
+    .read-more-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--saffron);
+      transition: gap var(--transition);
+    }
+    .read-more-link:hover { gap: 14px; color: var(--saffron-dark); }
+
+    /* Articles Grid */
+    .articles-section { background: var(--cream); }
+    .articles-heading {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .articles-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(212,175,55,0.35), transparent);
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 64px;
+    }
+    @media (max-width: 1024px) { .articles-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .articles-grid { grid-template-columns: 1fr; } }
+
+    .article-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(212,175,55,0.13);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .article-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+    .article-thumb {
+      position: relative;
+      overflow: hidden;
+      height: 210px;
+    }
+    .article-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+      display: block;
+    }
+    .article-card:hover .article-thumb img { transform: scale(1.06); }
+    .article-cat-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(26,10,0,0.75);
+      backdrop-filter: blur(4px);
+      color: var(--gold);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 50px;
+      border: 1px solid rgba(212,175,55,0.3);
+    }
+    .article-body {
+      padding: 28px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .article-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.35;
+      margin-bottom: 12px;
+    }
+    .article-body p {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 20px;
+    }
+    .article-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid rgba(212,175,55,0.12);
+      font-size: 0.76rem;
+      color: var(--text-light);
+    }
+    .article-footer .read-more-link { font-size: 0.82rem; }
+
+    /* health tips section */
+    .health-tips-section {
+      background: linear-gradient(135deg, #1A0A00, #2E1200, #1A0A00);
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .health-tips-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(212,175,55,0.08), transparent 60%);
+    }
+    .health-tips-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .health-tips-inner p.section-pre-label { color: var(--gold); }
+    .health-tips-inner h2.section-title { color: var(--white); }
+    .health-tips-inner p.section-subtitle { color: rgba(255,255,255,0.6); }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 1024px) { .tips-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .tips-grid { grid-template-columns: 1fr; } }
+
+    .tip-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(212,175,55,0.18);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      transition: var(--transition);
+    }
+    .tip-card:hover {
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(212,175,55,0.4);
+      transform: translateY(-5px);
+    }
+    .tip-icon { font-size: 2.4rem; margin-bottom: 16px; }
+    .tip-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .tip-card p { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+    /* Newsletter CTA */
+    .blog-cta {
+      background: var(--cream);
+      padding: 80px 0;
+      text-align: center;
+    }
+    .blog-cta-card {
+      background: linear-gradient(135deg, var(--saffron), var(--saffron-dark));
+      border-radius: var(--radius-xl);
+      padding: 56px 40px;
+      position: relative;
+      overflow: hidden;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .blog-cta-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FFF' fill-opacity='0.05'%3E%3Cpath d='M20 20.5V18H0v5h5v5H0v5h20v-9.5zm-2 4.5H9v-3h9v3zm11-4.5h2v-5H20v9.5h2V20h9zm-2 4.5H20v-3h9v3z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .blog-cta-card h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .blog-cta-card p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .blog-cta-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .cta-btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: var(--white);
+      color: var(--saffron-dark);
+      transition: var(--transition);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .cta-btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+    }
+    .cta-btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      border: 2px solid rgba(255,255,255,0.7);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+      transition: var(--transition);
+    }
+    .cta-btn-outline:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* Placeholder article images (gradient-based) */
+    .img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .img-p1 { background: linear-gradient(135deg, #2d1b00, #7a3d00); }
+    .img-p2 { background: linear-gradient(135deg, #1a3a1a, #2d6a2d); }
+    .img-p3 { background: linear-gradient(135deg, #1a1a3a, #3a3a7a); }
+    .img-p4 { background: linear-gradient(135deg, #3a1a00, #8a4400); }
+    .img-p5 { background: linear-gradient(135deg, #1a2d1a, #3d7a3d); }
+    .img-p6 { background: linear-gradient(135deg, #2d1a00, #6b3a00); }
+    .img-featured { background: linear-gradient(135deg, #1e0a00, #5c2800); }
+
+    /* Pagination */
+    .blog-pagination {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+    .pg-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(212,175,55,0.3);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .pg-btn.active,
+    .pg-btn:hover {
+      background: var(--saffron);
+      color: var(--white);
+      border-color: var(--saffron);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="kesari caters logo no bg.png" alt="Kesari Caters Logo" class="logo-img" />
+      </a>
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="index.html#services" class="nav-link">Services</a>
+        <a href="index.html#about" class="nav-link">About Us</a>
+        <a href="blog.html" class="nav-link active">Blog</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+        <a href="index.html#contact" class="nav-cta-btn">Book Your Event</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== BLOG HERO ===== -->
+  <section class="blog-hero">
+    <div class="blog-hero-content">
+      <p class="hero-pre-title">From Our Kitchen & Beyond</p>
+      <h1>Food, Health &<em>Culinary Wisdom</em></h1>
+      <p>Insights on nutrition, Indian food traditions, event catering tips, and the art of eating well — from Jaipur's most trusted catering team.</p>
+    </div>
+  </section>
+
+  <!-- ===== MAIN BLOG CONTENT ===== -->
+  <section class="articles-section section-padding">
+    <div class="container">
+
+      <!-- Category Filter -->
+      <div class="blog-filter">
+        <button class="filter-btn active">All Articles</button>
+        <button class="filter-btn">🍛 Recipes & Food</button>
+        <button class="filter-btn">🥗 Health & Nutrition</button>
+        <button class="filter-btn">🎊 Event Tips</button>
+        <button class="filter-btn">🌿 Ayurvedic Living</button>
+      </div>
+
+      <!-- Featured Article -->
+      <div class="featured-article">
+        <div class="featured-img-wrap">
+          <div class="img-featured img-placeholder" style="min-height:400px;">🍛</div>
+        </div>
+        <div class="featured-content">
+          <span class="feat-tag">🌟 Featured</span>
+          <h2>The Secret Behind Rajasthani Dal Baati Churma — and Why It's One of India's Healthiest Meals</h2>
+          <div class="article-meta">
+            <span>📅 April 12, 2026</span>
+            <span>⏱ 7 min read</span>
+            <span>🏷 Food & Culture</span>
+          </div>
+          <p>
+            Dal Baati Churma is more than a dish — it's a centuries-old nutritional powerhouse from the land of Rajasthan. High in protein, rich in complex carbohydrates, and packed with ghee's healthy fats, this iconic meal sustains energy for hours and celebrates the wisdom of traditional Indian cooking.
+          </p>
+          <a href="#" class="read-more-link">Read Full Article →</a>
+        </div>
+      </div>
+
+      <!-- Articles Grid -->
+      <h2 class="articles-heading">Food & Nutrition Articles</h2>
+      <div class="articles-grid">
+
+        <div class="article-card">
+          <div class="article-thumb">
+            <div class="img-p1 img-placeholder">🥘</div>
+            <span class="article-cat-tag">🥗 Health</span>
+          </div>
+          <div class="article-body">
+            <h3>5 Indian Spices That Are Secretly Superfoods</h3>
+            <p>Turmeric, cumin, coriander, fenugreek, and black pepper — these staples of Indian cooking aren't just flavour bombs. Discover the science-backed health benefits hidden in your masala dabba.</p>
+            <div class="article-footer">
+              <span>📅 Apr 8, 2026 · 5 min</span>
+              <a href="#" class="read-more-link">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="article-thumb">
+            <div class="img-p2 img-placeholder">🥗</div>
+            <span class="article-cat-tag">🌿 Ayurveda</span>
+          </div>
+          <div class="article-body">
+            <h3>Eating by Season: Ayurvedic Food Wisdom for Every Month</h3>
+            <p>Ayurveda teaches us that food should align with the season. Spring calls for lighter greens, summer for cooling fruits, and winter for warm, nourishing dals. Here's a practical seasonal eating guide.</p>
+            <div class="article-footer">
+              <span>📅 Apr 3, 2026 · 6 min</span>
+              <a href="#" class="read-more-link">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="article-thumb">
+            <div class="img-p3 img-placeholder">🍽️</div>
+            <span class="article-cat-tag">🎊 Events</span>
+          </div>
+          <div class="article-body">
+            <h3>How to Plan a Wedding Menu That Every Guest Will Love</h3>
+            <p>Choosing a wedding menu is one of the most important — and most stressful — decisions. From balancing veg and non-veg to managing dietary restrictions at scale, here's our expert guide.</p>
+            <div class="article-footer">
+              <span>📅 Mar 28, 2026 · 8 min</span>
+              <a href="#" class="read-more-link">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="article-thumb">
+            <div class="img-p4 img-placeholder">🍬</div>
+            <span class="article-cat-tag">🍛 Recipes</span>
+          </div>
+          <div class="article-body">
+            <h3>The Art of Indian Sweets: Why Mithai Is More Than a Dessert</h3>
+            <p>From Motichoor Ladoo at weddings to Besan Halwa on cold winter mornings — Indian sweets are deeply tied to memory, celebration, and love. A sweet exploration of India's confectionery heritage.</p>
+            <div class="article-footer">
+              <span>📅 Mar 20, 2026 · 5 min</span>
+              <a href="#" class="read-more-link">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="article-thumb">
+            <div class="img-p5 img-placeholder">🥛</div>
+            <span class="article-cat-tag">🥗 Health</span>
+          </div>
+          <div class="article-body">
+            <h3>Lassi, Chaas & Sherbets: India's Original Probiotic Drinks</h3>
+            <p>Long before probiotic supplements were trending, India's grandmothers were pouring cold glasses of lassi. These fermented dairy drinks are gut-friendly, cooling, and absolutely delicious.</p>
+            <div class="article-footer">
+              <span>📅 Mar 14, 2026 · 4 min</span>
+              <a href="#" class="read-more-link">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="article-thumb">
+            <div class="img-p6 img-placeholder">👨‍🍳</div>
+            <span class="article-cat-tag">🎊 Events</span>
+          </div>
+          <div class="article-body">
+            <h3>Live Food Counters at Events: A Complete Guide for Hosts</h3>
+            <p>Chaat, Dosa, Jalebi, Pav Bhaji — live food counters have become the star of modern Indian events. Here's everything you need to know about setting up, staffing, and selecting them for your celebration.</p>
+            <div class="article-footer">
+              <span>📅 Mar 6, 2026 · 6 min</span>
+              <a href="#" class="read-more-link">Read →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pagination -->
+      <div class="blog-pagination">
+        <button class="pg-btn active">1</button>
+        <button class="pg-btn">2</button>
+        <button class="pg-btn">3</button>
+        <button class="pg-btn">→</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== HEALTH TIPS SECTION ===== -->
+  <section class="health-tips-section">
+    <div class="container">
+      <div class="health-tips-inner">
+        <p class="section-pre-label">Quick Bites</p>
+        <h2 class="section-title">Healthy Eating Tips from Our Kitchen</h2>
+        <p class="section-subtitle">Simple, actionable wisdom from our chefs that you can apply every day.</p>
+      </div>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-icon">🥣</div>
+          <h4>Start with Warm Water</h4>
+          <p>Begin your morning with a glass of warm water and a squeeze of lemon. It kickstarts digestion and flushes toxins naturally.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">🌿</div>
+          <h4>Cook with Ghee, Not Oil</h4>
+          <p>Pure desi ghee is rich in healthy saturated fats and fat-soluble vitamins. Used in moderation, it's far superior to refined vegetable oils.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">🥗</div>
+          <h4>Eat the Rainbow</h4>
+          <p>Different coloured vegetables provide different phytonutrients. Aim for at least 3–4 different coloured vegetables in your daily meals.</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">⏰</div>
+          <h4>Eat Before Sunset</h4>
+          <p>Ayurveda recommends eating your heaviest meal at noon when digestive fire (Agni) is strongest, and keeping dinner light and early.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BLOG CTA ===== -->
+  <div class="blog-cta">
+    <div class="container">
+      <div class="blog-cta-card">
+        <h2>Planning Your Next Event?</h2>
+        <p>Let Kesari Caters bring the same love, freshness, and expertise from our kitchen to your celebration.</p>
+        <div class="blog-cta-actions">
+          <a href="index.html#contact" class="cta-btn-white">📞 Book a Consultation</a>
+          <a href="index.html#services" class="cta-btn-outline">🍽️ Browse Our Services</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="kesari caters logo no bg.png" alt="Kesari Caters" class="footer-logo" />
+          <p>Premium catering in Jaipur — crafted with care and served with love since 2014.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Instagram" class="social-link">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" class="social-link">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#services">Our Services</a></li>
+            <li><a href="index.html#about">About Us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Popular Posts</h4>
+          <ul>
+            <li><a href="#">Dal Baati Churma Guide</a></li>
+            <li><a href="#">5 Superfood Spices</a></li>
+            <li><a href="#">Wedding Menu Tips</a></li>
+            <li><a href="#">Live Counters Guide</a></li>
+            <li><a href="#">Ayurvedic Eating</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact-col">
+          <h4>Reach Us</h4>
+          <p>📍 Jaipur, Rajasthan</p>
+          <p>📞 [Client to provide]</p>
+          <p>✉️ [Client to provide]</p>
+          <p>🕐 Mon–Sun: 9AM – 8PM</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Kesari Caters. All rights reserved. | Jaipur, Rajasthan</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span class="whatsapp-label">Chat Now</span>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>
